@@ -1,0 +1,96 @@
+extends layout
+
+append head
+    title 觅糖网-#{type}
+    meta(name="keywords" content="觅糖网，觅糖网旅游，觅糖网时尚，觅糖网美食，觅糖网视频，觅糖网推荐")
+    meta(name="description" content="觅糖网是联动优势旗下一个综合性的门户类网站，囊括时尚、美食、旅游、视频等栏目。觅糖网给您超快感的上网体验！")
+block content
+    include head
+    .content#content
+        each article in articles
+            if article.videoUrl
+                a.cont2.cont3.clearfix(href="/pages/"+article.id)
+                    .title.fl.mr30
+                        p.p1=article.title
+                        p.p2
+                            i.icon-view
+                            span=article.videoCount+' 次观看'
+                    .img-wrap.pr.fl
+                        img.fl.img-v(src=article.articleImgs[0]+"?x-oss-process=style/list_jpg")
+                        .cont3-mask.tc
+                            img.cont3-mask-play(src="/images/play.png")
+                            - var str1 = Number(article.videoTime.split(':')[0]) > 9 ? Number(article.videoTime.split(':')[0]) : '0' + Number(article.videoTime.split(':')[0]); var time = str1 + ':' + article.videoTime.split(':')[1];
+                            p.tr.mr5.c_fff.vid_bg=time
+            else if article.articleImgs && (article.articleImgs.length > 2)
+                a.cont1(href="/pages/"+article.id)
+                    p.title=article.title
+                    p.clearfix
+                        img.img(src=article.articleImgs[0]+"?x-oss-process=style/list_jpg")
+                        img.img(src=article.articleImgs[1]+"?x-oss-process=style/list_jpg")
+                        img.img(src=article.articleImgs[2]+"?x-oss-process=style/list_jpg")
+                    p
+                        i.icon-view
+                        span=article.readCount+' 次阅读'
+            else
+                a.cont2.clearfix(href="/pages/"+article.id)
+                    .title.fl.mr30
+                        p.p1=article.title
+                        p.p2
+                            i.icon-view
+                            span=article.readCount+' 次阅读'
+                    img.fl.img(src=article.articleImgs[0]+"?x-oss-process=style/list_jpg")
+append script
+    script.
+        $(function(){
+            // 下拉刷新
+            var count = 0;
+            window.onscroll = function () {
+                var h = document.body.scrollTop || document.documentElement.scrollTop;
+                var m = h - count*2000;
+
+                if(m >= 4600){
+                    count = count + 1;
+
+                    $.ajax({
+                        type:"POST",
+                        cache:false,
+                        url:window.location.href,
+                        dataType:'json',
+                        data:{from: 30+(count-1)*10},
+                        success:function(res){
+
+                            var datas = res.datas; 
+                            var str = '';
+                            for (var i = 0; i < datas.length; i++) {
+                                if (datas[i].videoUrl) {
+                                    var str1 = Number(datas[i].videoTime.split(':')[0]) > 9 ? Number(datas[i].videoTime.split(':')[0]) : '0' + Number(datas[i].videoTime.split(':')[0]); 
+                                    var time = str1 + ':' + datas[i].videoTime.split(':')[1];
+
+                                    str += '<a class="cont2 cont3 clearfix" href="/pages/'+datas[i].id+'"><div class="title fl mr30"><p class="p1">'+datas[i].title+'</p><p class="p2"><i class="icon-view"></i><span>'+datas[i].videoCount+' 次观看'+'</span></p></div><div class="img-wrap pr fl"><img class="fl img-v" src="'+datas[i].articleImgs[0]+'?x-oss-process=style/list_jpg'+'"><div class="cont3-mask tc"><img class="cont3-mask-play" src="/images/play.png"><p class="tr mr5 c_fff vid_bg">'+time+'</p></div></div></a>'
+                                } else if (datas[i].articleImgs.length > 2) {
+                                    str += '<a class="cont1" href="/pages/'+datas[i].id+'"><p class="title">'+datas[i].title+'</p><p class="clearfix"><img class="img" src="'+datas[i].articleImgs[0]+'?x-oss-process=style/list_jpg'+'"><img class="img" src="'+datas[i].articleImgs[1]+'?x-oss-process=style/list_jpg'+'"><img class="img" src="'+datas[i].articleImgs[2]+'?x-oss-process=style/list_jpg'+'"></p><p><i class="icon-view"></i><span>'+datas[i].readCount+' 次阅读'+'</span></p></a>'
+                                } else {
+                                    str += '<a class="cont2 clearfix" href="/pages/'+datas[i].id+'"><div class="title fl mr30"><p class="p1">'+datas[i].title+'</p><p class="p2"><i class="icon-view"></i><span>'+datas[i].readCount+' 次阅读'+'</span></p></div><img class="fl img" src="'+datas[i].articleImgs[0]+'?x-oss-process=style/list_jpg'+'"></a>'
+                                }
+                            }
+
+                            $('.content').append(str)
+                        },
+                        error:function(err){
+                            console.log(err)
+                        }
+                    });
+                };
+            }
+        })
+           
+
+
+
+
+
+
+                        
+ 
+
+

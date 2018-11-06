@@ -1,0 +1,8 @@
+{
+    "mongo_db_url": "mongodb://localhost:27017/sitemaker",
+    "server_port": 9002,
+    "enableCache": true,
+    "cacheTimeInSeconds": 60,
+    "appid": "1584572240597634",
+    "token": "tfOKvyMiXuYQMmuv"
+}

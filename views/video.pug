@@ -1,0 +1,71 @@
+extends layout
+
+append head
+  title= "觅糖网-视频"
+  meta(name="keywords" content="觅糖网，觅糖网旅游，觅糖网时尚，觅糖网美食，觅糖网视频，觅糖网推荐")
+  meta(name="description" content="觅糖网是联动优势旗下一个综合性的门户类网站，囊括时尚、美食、旅游、视频等栏目。觅糖网给您超快感的上网体验！")
+block content
+  include head
+  .video-wrap.clearfix
+    each article in articles
+        a(href="/pages/"+article.id).fl.video-list.pr
+            if (article.articleImgs[0].split('#')[1] && article.articleImgs[0].split('#')[1].indexOf('http') != -1)
+                img.video-img(src=article.articleImgs[0].split('#')[1])
+            else
+                img.video-img(src=article.articleImgs[0]+"?x-oss-process=style/list_jpg")
+            p.title=article.title
+            .video-img-mask.tc
+                img.play(src="/images/play.png")
+                p.play-p.vid_bg2
+                    span.playNum=article.videoCount+' 次观看'
+                    - var str0 = article.videoTime.split(':')[0]); var str1 = article.videoTime.split(':')[1]); var str = Number(str0) > 9 ? Number(str0) : '0' + Number(str0); var time = str + ':' + str1;
+                    span.fr.mr10=time
+append script
+    script.
+        $(function(){
+            // 下拉刷新
+            var count = 0;
+            window.onscroll = function () {
+                var h = document.body.scrollTop || document.documentElement.scrollTop;
+                var m = h - count*2730;
+
+                if(m >= 2700){     
+                    count = count + 1;
+                    $.ajax({
+                        type:"POST",
+                        cache:false, 
+                        url:window.location.href,
+                        dataType:'json',
+                        data:{from: 30+(count-1)*20},
+                        success:function(res){
+
+                            var datas = res.datas; 
+                            var str = '';
+                            for (var i = 0; i < datas.length; i++) {
+                                
+                                if (datas[i].articleImgs[0].split('#')[1] && datas[i].articleImgs[0].split('#')[1].indexOf('http') != -1) {
+                                    var imgsrc = datas[i].articleImgs[0].split('#')[1]
+                                } else {
+                                    var imgsrc = datas[i].articleImgs[0]+'?x-oss-process=style/list_jpg'
+                                }
+
+                                if (datas[i].videoUrl) {
+                                    var str0 = article.videoTime.split(':')[0]); 
+                                    var str1 = article.videoTime.split(':')[1]); 
+                                    var str = Number(str0) > 9 ? Number(str0) : '0' + Number(str0); 
+                                    var time = str + ':' + str1;
+
+                                    str += '<a class="fl video-list pr" href="/pages/'+datas[i].id+'"><img class="video-img" src="'+imgsrc+'"><p class="title">'+datas[i].title+'</p><div class="video-img-mask tc"><img class="play" src="/images/play.png"><p class="play-p vid_bg2"><img class="playNum" src="/images/playNum.png"><span>'+datas[i].videoCount+' 次观看'+'</span><span class="fr mr10">'+time+'</span></p></div></a>'
+                                }
+                            }
+
+                            $('.video-wrap').append(str)
+                        },
+                        error:function(err){
+                            console.log(err)
+                        }
+                    });
+                };
+            }
+        })
+

@@ -1,0 +1,45 @@
+header.head.tc#head
+    img.logo(src="/images/logo.png", alt=config.siteName)
+    
+#wrap
+    .tab-wrap.pr
+        .tab.tag.is-show#pan
+            ul.wrap.clearfix
+                if type=="hot"
+                    a.tab_list.cur(href="/?type=hot") 推荐 
+                        span
+                else 
+                    a.tab_list(href="/?type=hot") 推荐 
+                        span
+
+                if type=="video"
+                    a.tab_list.cur(href="/video?type=video") 视频 
+                        span
+                else 
+                    a.tab_list(href="/video?type=video") 视频 
+                        span
+
+                each item in config.types
+                    if type==item.value
+                        a.tab_list.cur(href="/?type="+item.value)=item.value 
+                            span
+                    else
+                        a.tab_list(href="/?type="+item.value)=item.value 
+                            span
+
+        .none.tag.classify.clearfix
+            a.classify-list(href="/?type=hot") 推荐
+            a.classify-list(href="/video?type=video") 视频
+            each item in config.types
+                a.classify-list(href="/?type="+item.value)=item.value
+            
+        .three.pa
+            .hamburger
+                span.line
+                span.line
+                span.line 
+include search
+        
+
+
+

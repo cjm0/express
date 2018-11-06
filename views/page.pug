@@ -1,0 +1,164 @@
+doctype html
+html(mip)
+    head
+        title 觅糖-#{title}
+        meta(name="keywords" content="觅糖网,")
+        meta(name="description" content="觅糖网是一个")
+        meta(charset="utf-8")
+        meta(name="renderer" content="webkit")
+        meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
+        meta(name="apple-mobile-web-app-capable" content="yes")
+        meta(name="apple-mobile-web-app-status-bar-style" content="black")
+        meta(name="format-detection" content="telephone=no, email=no, address=no")
+        meta(name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1")
+        link(rel="stylesheet" type="text/css" href="/css/reset.min.css")
+        link(rel="stylesheet" type="text/css" href="https://mipcache.bdstatic.com/static/v1/mip.css")
+        link(rel="stylesheet" type="text/css" href="/css/page.css")
+        //- 需要替换成原页面url
+        link(rel="canonical" type="text/css" href="https://"+domain+'/page/'+id)
+        link(rel="shortcut icon" href="#")
+    body
+        if videoUrl
+            header.head.tc.bg_fff
+                a(href="/video?type=video").icon-left.fl
+                     mip-img(layout="responsive" width="25" height="48" src="/images/icon-left.png")
+                a.img-wrap(href="/")
+                    mip-img(layout="responsive" width="10" height="3" src="/images/logo.png" alt="觅糖网")
+
+            mip-video(poster=videoImg+"?x-oss-process=style/video_img" controls layout="responsive" width="750" height="422" src=videoUrl).bg_fff
+
+            h1.h1-title.bg_fff #{title}   
+            a(href=authorLinkImg).info.clearfix.bg_fff.block
+                p.author-img.fl
+                    if authorImg
+                        mip-img(layout="responsive" width="1" height="1" src=authorImg)
+                    else
+                        mip-img(layout="responsive" width="1" height="1" src="/images/self.jpg")
+                .author-wrap.fl
+                    p.author #{author}
+                        if authorAlias
+                            span.small #{authorAlias}
+                    p.address #{authorAddress}
+
+            mip-showmore(bottomshadow='1' maxheight='600' animatetime='.3')#showmore01
+                .content.bg_fff
+                    .div.fb 视频内容:
+                    .cont!=content
+            .mip-showmore-btn(on="tap:showmore01.toggle" data-closetext="收起") 查看更多...
+        else
+            header.head.tc.bg_fff.tuwen0
+                a(href="/?type="+type).icon-left.fl
+                    mip-img(layout="responsive" width="25" height="48" src="/images/icon-left.png")
+                a.img-wrap(href="/")
+                    mip-img(layout="responsive" width="10" height="3" src="/images/logo.png" alt="觅糖网")
+
+            h1.h1-title.bg_fff.tuwen1
+                p.p1 #{title}
+                p.p2 #{readCount} 次阅读
+            a(href=authorLinkImg).info.clearfix.bg_fff.block.tuwen2
+                p.author-img.fl
+                    if authorImg
+                        mip-img(layout="responsive" width="1" height="1" src=authorImg)
+                    else
+                        mip-img(layout="responsive" width="1" height="1" src="/images/self.jpg")
+                .author-wrap.fl
+                    p.author #{author}
+                        if authorAlias
+                            span.small #{authorAlias}
+                    p.address #{authorAddress}
+
+            mip-showmore(bottomshadow='1' maxheight='600' animatetime='.3')#showmore01
+                .content.bg_fff
+                    .cont!=content
+            .mip-showmore-btn(on="tap:showmore01.toggle" data-closetext="收起") 查看更多...
+        if advImg
+            a(href=advUrl).adv
+                mip-img(layout="responsive" width="750" height="290" src=advImg)
+        if about.length > 0
+            .about.bg_fff
+                h2.about_title
+                    span
+                    var.fb 相关内容
+                .about_listWrap.clearfix  
+                    each item in about
+                        if item.videoUrl
+                            a.about_list.clearfix.pr(data-type="mip" data-title="item.title" href='https://'+domain+'/pages/'+item.id)
+                                p.about_img.fl
+                                    mip-img(layout="responsive" width="190" height="120" src=item.videoImg+"?x-oss-process=style/list_jpg")  
+                                    .video-img-mask.tc
+                                        p.play-wrap
+                                            mip-img(layout="responsive" width="60" height="60" src="/images/play.png")
+                                        - var str1 = Number(item.videoTime.split(':')[0]) > 9 ? Number(item.videoTime.split(':')[0]) : '0' + Number(item.videoTime.split(':')[0]); var time = str1 + ':' + item.videoTime.split(':')[1];
+                                        p.playNum.vid_bg3=time
+                                .about_txt.fl
+                                    p.txt #{item.title}
+                                    p
+                                        i.icon-view
+                                        span=videoCount+' 次观看'
+                        else 
+                            a.about_list.clearfix(data-type="mip" data-title="item.title" href='https://'+domain+'/pages/'+item.id)
+                                p.about_img.fl
+                                    mip-img.about_img_img(layout="responsive" width="190" height="120" src=item.articleImgs[0]+"?x-oss-process=style/list_jpg")  
+                                .about_txt.fl
+                                    p.txt #{item.title}
+                                    p.txt2
+                                        i.icon-view
+                                        span=readCount+' 次阅读'
+        if videoUrl
+            script(type="application/ld+json" v-html="json").
+                {
+                    "@context": "http://cambrian-schema.su.bcebos.com/video_search.schema",
+                   "@id": "#{'https://'+domain+'/page/'+id}",
+                    "appid": "1584572240597634",
+                    "title": "#{title}",
+                    "images": ["#{articleImgs[0]}"],
+                    "description": "#{desc}",
+                    "pubDate": "#{created}",
+                    "type": "video",
+                    "data": {
+                        "lastmod": "#{updated}",
+                        "data": {
+                          "display": {
+                            "title": "#{title}",
+                            "category": "#{type}",
+                            "playUrlForWeb":'',
+                            "playUrlForH5": "#{'https://'+domain+'/page/'+id}",
+                            "isDelete": 0,
+                            "duration": #{videoTime1},
+                            "producer": "#{author}",
+                            "playcount": #{videoCount},
+                          }
+                        }
+                    }
+                }
+        else
+            script(type="application/ld+json" v-html="json").
+                    {
+                        "@context": "http://cambrian-schema.su.bcebos.com/video_search.schema",
+                        "@id": "#{'https://'+domain+'/page/'+id}",
+                        "appid": "1584572240597634",
+                        "title": "#{title}",
+                        "images": ["#{articleImgs[0]}"],
+                        "description": "#{desc}",
+                        "pubDate": "#{created}",
+                        "type": "image_text",
+                        "data": {
+                            "lastmod": "#{updated}",
+                            "data": {
+                              "display": {
+                                "title": "#{title}",
+                                "category": "#{type}",
+                                "isDelete": 0,
+                                "producer": "#{author}",
+                                "answer": "#{answer0}"
+                              }
+                            }
+                        }
+                    }
+        // mip 运行环境
+        script(src="https://mipcache.bdstatic.com/static/v1/mip.js")
+        script(src="https://mipcache.bdstatic.com/static/v1/mip-showmore/mip-showmore.js")
+        script(src="https://mipcache.bdstatic.com/extensions/platform/v1/mip-cambrian/mip-cambrian.js")
+        <mip-cambrian site-id="1584572240597634"></mip-cambrian>
+
+

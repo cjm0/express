@@ -1,0 +1,84 @@
+extends layout
+
+append head
+    meta(name="keywords" content="觅糖网，觅糖网旅游，觅糖网时尚，觅糖网美食，觅糖网视频，觅糖网推荐")
+    meta(name="description" content="觅糖网是联动优势旗下一个综合性的门户类网站，囊括时尚、美食、旅游、视频等栏目。觅糖网给您超快感的上网体验！")
+block content
+    .search-head.mb20
+            label.search-label.fl.clearfix
+                i.search-left.fl
+                input(type="text" disabled).search-ipt.search-ipt2
+            //
+                p.close.fr.mr30.tc.hand.close-click2
+                i.icon-close
+    .content
+        if articles.length > 0
+            each article in articles
+                if article.videoUrl
+                    a.cont2.cont3.clearfix(href="/pages/"+article.id)
+                        .title.fl.mr30
+                            p.p1=article.title
+                            p.p2
+                                i.icon-view
+                                span=article.videoCount+' 次观看'
+                        .img-wrap.pr.fl
+                            if (article.articleImgs[0].split('#')[1] && article.articleImgs[0].split('#')[1].indexOf('http') != -1)
+                                img.fl.img-v(src=article.articleImgs[0].split('#')[1])
+                            else
+                                img.fl.img-v(src=article.articleImgs[0]+"?x-oss-process=style/list_jpg")
+                            .cont3-mask.tc
+                                img.cont3-mask-play(src="/images/play.png")
+                                - var str1 = Number(article.videoTime.split(':')[0]) > 9 ? Number(article.videoTime.split(':')[0]) : '0' + Number(article.videoTime.split(':')[0]); var time = str1 + ':' + article.videoTime.split(':')[1];
+                                p.tr.mr5.c_fff.vid_bg=time
+                else if article.articleImgs && (article.articleImgs.length > 2)
+                    a.cont1(href="/pages/"+article.id)
+                        p.title=article.title
+                        p.clearfix
+                            if (article.articleImgs[0].split('#')[1] && article.articleImgs[0].split('#')[1].indexOf('http') != -1)
+                                img.fl.img(src=article.articleImgs[0].split('#')[1])
+                            else
+                                img.fl.img(src=article.articleImgs[0]+"?x-oss-process=style/list_jpg")
+
+                            if (article.articleImgs[1].split('#')[1] && article.articleImgs[1].split('#')[1].indexOf('http') != -1)
+                                img.fl.img(src=article.articleImgs[1].split('#')[1])
+                            else
+                                img.fl.img(src=article.articleImgs[1]+"?x-oss-process=style/list_jpg")
+
+                            if (article.articleImgs[2].split('#')[1] && article.articleImgs[2].split('#')[1].indexOf('http') != -1)
+                                img.fl.img(src=article.articleImgs[2].split('#')[1])
+                            else
+                                img.fl.img(src=article.articleImgs[2]+"?x-oss-process=style/list_jpg")
+                        p
+                            i.icon-view
+                            span=article.readCount+' 次阅读'
+                else
+                    a.cont2.clearfix(href="/pages/"+article.id)
+                        .title.fl.mr30
+                            p.p1=article.title
+                            p.p2
+                                i.icon-view
+                                span=article.readCount+' 次阅读'
+                        if (article.articleImgs[0].split('#')[1] && article.articleImgs[0].split('#')[1].indexOf('http') != -1)
+                            img.fl.img(src=article.articleImgs[0].split('#')[1])
+                        else
+                            img.fl.img(src=article.articleImgs[0]+"?x-oss-process=style/list_jpg")
+        else
+            p.search_no 搜索结果为空~
+
+    include search
+    append script
+        script.
+                function getQueryString(name){
+                 // 获取链接参数
+                  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                  var r = window.location.search.substr(1).match(reg);
+                  if (r != null) return decodeURI(r[2]);
+                  return null;
+                };
+
+                var tag = getQueryString('key');
+                document.title = '觅糖网-'+tag;
+            
+
+
+

@@ -1,0 +1,64 @@
+{
+    "siteName": "觅糖网",
+    "shouldIndexImgUpdate": true,
+    "types": [
+        {
+            "value": "时尚",
+            "label": "时尚",
+            "subTypes": [
+                {
+                    "value": "美妆",
+                    "label": "美妆",
+                    "img": "http://img.91mitang.com/picture/meiz/50-100/60/1.png"
+                },
+                {
+                    "value": "包包",
+                    "label": "包包",
+                    "img": "https://ks3-cn-beijing.ksyun.com/ibuy-baidu-img/game/lanlingwang.png"
+                },
+                {
+                    "value": "服饰",
+                    "label": "服饰",
+                    "img": "https://ks3-cn-beijing.ksyun.com/ibuy-baidu-img/game/lanlingwang.png"
+                }
+            ]
+        },
+        {
+            "value": "旅游",
+            "label": "旅游",
+            "subTypes": [
+                {
+                    "value": "攻略",
+                    "label": "攻略",
+                    "img": "http://91mitang-img.oss-cn-qingdao.aliyuncs.com/picture/travel/1-50/1.png"
+                },
+                {
+                    "value": "知识",
+                    "label": "知识",
+                    "img": "https://ks3-cn-beijing.ksyun.com/ibuy-baidu-img/game/lanlingwang.png"
+                }
+            ]
+        },
+        {
+            "value": "教育",
+            "label": "教育",
+            "subTypes": [
+                {
+                    "value": "教育",
+                    "label": "教育",
+                    "img": "https://ks3-cn-beijing.ksyun.com/ibuy-baidu-img/game/lanlingwang.png"
+                },
+                {
+                    "value": "讲解",
+                    "label": "讲解",
+                    "img": "http://img.91mitang.com/picture/knowledge/1-50/002.png"
+                },
+                {
+                    "value": "典故",
+                    "label": "典故",
+                    "img": "https://ks3-cn-beijing.ksyun.com/ibuy-baidu-img/game/lanlingwang.png"
+                }
+            ]
+        }
+    ]
+}
