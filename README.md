@@ -22,7 +22,9 @@ npm run dev
 
 `brew services start mongodb` 启动 mongodb
 
-`npm run dev` 本地启动
+`npm start` 本地启动 无监听
+
+`npm run dev` 本地启动 有监听
 
 `npm run prod` 线上启动
 

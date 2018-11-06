@@ -12,7 +12,11 @@ var config = require("./conf/config");
 var db = require('mongoose');
 db.Promise = global.Promise;
 db.connect(config.mongo_db_url, { useMongoClient: true });
+db.connection.once('open', () => {
+    console.log("数据库成功连接")
+})
 global.db = db;
+
 
 
 // 渲染页面 render

@@ -4,4 +4,7 @@ node_modules
 .idea
 .vscode
 
-
+.cache
+.sass-cache
+.yardoc
+_yardoc

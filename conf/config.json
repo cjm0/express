@@ -1,5 +1,5 @@
 {
-    "mongo_db_url": "mongodb://localhost:27017/sitemaker",
+    "mongo_db_url": "mongodb://127.0.0.1:27017/sitemaker",
     "server_port": 3006,
     "enableCache": true,
     "cacheTimeInSeconds": 60,
