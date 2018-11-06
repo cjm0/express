@@ -1,11 +1,10 @@
 {
   "name": "sitemaker2",
-  "version": "0.0.0",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
-    "start": "node-dev /bin/www",
     "dev": "./node_modules/.bin/nodemon bin/www",
-    "prd": "pm2 start bin/www"
+    "prod": "pm2 start bin/www"
   },
   "dependencies": {
     "ali-oss": "^4.11.4",
