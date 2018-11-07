@@ -19,6 +19,8 @@ global.db = db;
 
 
 
+
+
 // 渲染页面 render
 var index = require('./routes/render/index');
 var video = require('./routes/render/video');
