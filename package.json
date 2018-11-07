@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node bin/express",
-    "dev": "./node_modules/.bin/nodemon bin/www",
+    "dev": "./node_modules/.bin/nodemon bin/express",
     "prod": "pm2 start bin/express"
   },
   "dependencies": {
