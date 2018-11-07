@@ -16,7 +16,7 @@ router.get('/',
     }, cache.route(),
     function(req, res, next) {
         var domain = getDomain(req);
-        let config = require("../../conf/" + getDomain(req));
+        let config = require("../../conf/www.91mitang.com.json");
 
         var type = req.query.type;
         var queryCond = {
