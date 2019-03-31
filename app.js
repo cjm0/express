@@ -26,7 +26,7 @@ var index = require('./routes/render/index');
 var video = require('./routes/render/video');
 var result = require('./routes/render/result');
 var page = require('./routes/render/page');
-
+var input = require('./routes/render/input');
 
 
 // 操作数据库 api
@@ -35,7 +35,7 @@ var types = require('./routes/api/types');
 var articles = require('./routes/api/articles');
 var about_link = require('./routes/api/about_link');
 var upload = require('./routes/api/upload');
-
+var saveinput = require('./routes/api/saveinput');
 
 
 // 后台管理 admin
@@ -81,7 +81,7 @@ app.disable('x-powered-by');
 //设置跨域访问
 app.all('*', function(req, res, next) {
     // 允许全局跨域
-    res.header("Access-Control-Allow-Origin", req.headers.origin);
+    res.header("Access-Control-Allow-Origin", '*');
     // 允许上传的头标志
     res.header("Access-Control-Allow-Headers", "X-Requested-With, cjm, content-type");
     res.header("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
@@ -106,7 +106,7 @@ app.use('/', index);
 app.use('/video', video);
 app.use('/result', result);
 app.use('/pages', page);
-
+app.use('/input', input);
 
 
 // 操作数据库 api
@@ -115,7 +115,7 @@ app.use('/types', types);
 app.use('/articles', articles);
 app.use('/about_link', about_link);
 app.use('/upload', upload);
-
+app.use('/saveinput', saveinput);
 
 
 // 后台管理 admin

@@ -1,7 +1,7 @@
 {
   "name": "sitemaker2",
   "version": "1.0.1",
-  "private": true,
+  "private": false,
   "scripts": {
     "start": "node bin/express",
     "dev": "./node_modules/.bin/nodemon bin/express",

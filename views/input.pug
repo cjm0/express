@@ -1,0 +1,119 @@
+extends layout
+
+block content
+    .input_wrap
+        .list
+            span 姓名：
+            input(type="text" class="name")
+        .list
+            span 性别：
+            input(type="text" class="sex")
+        .list
+            span 地区：
+            input(type="text" placeholder="比如：北京" class="area")
+        .list
+            span 电话：
+            input(type="tel" class="tel")
+        .list
+            span 微信：
+            input(type="text" class="wx")
+        .list
+            span 损失金额：
+            input(type="tel" placeholder="比如：10万" class="money")
+        .list
+            span 职业/擅长：
+            input(type="text" placeholder="比如：空闲时间多等" class="has")
+        .list
+            span 是否能到现场：
+            input(type="yes" placeholder="比如：能/否" class="yes")
+
+        .submit 提交
+    
+append script
+    script.
+            $(function() {
+                $('.submit').eq(0).on('click', function() {
+                    let name = $('.name').eq(0).val().trim();
+                    let sex = $('.sex').eq(0).val().trim();
+                    let area = $('.area').eq(0).val().trim();
+                    let tel = $('.tel').eq(0).val().trim();
+                    let wx = $('.wx').eq(0).val().trim();
+                    let money = $('.money').eq(0).val().trim();
+                    let has = $('.has').eq(0).val().trim();   
+                    let yes = $('.yes').eq(0).val().trim();   
+
+                    if (!name) {
+                        alert('请输入姓名')
+                        return;
+                    }
+                    if (!sex) {
+                        alert('请输入性别')
+                        return;
+                    }
+                    if (!area) {
+                        alert('请输入地区')
+                        return;
+                    }
+                    if (!tel) {
+                        alert('请输入电话')
+                        return;
+                    }
+                    if (!(/^1[23456789]\d{9}$/.test(tel))) {
+                        alert('请输入正确的电话')
+                        return;
+                    }
+                    if (!wx) {
+                        alert('请输入微信')
+                        return;
+                    }
+                    if (!money) {
+                        alert('请输入损失金额')
+                        return;
+                    }
+                    if (!has) {
+                        alert('请输入特长')
+                        return;
+                    }
+                    if (!yes) {
+                        alert('请输入意愿')
+                        return;
+                    }
+
+
+                    $.ajax({
+                        type:"POST",
+                        cache:false, 
+                        url: 'http://' + window.location.host + '/saveinput',
+                        dataType:'json',
+                        data:{
+                            name: name,
+                            sex: sex,
+                            area: area,
+                            tel: tel,
+                            wx: wx,
+                            money: money,
+                            has: has,  
+                            yes: yes, 
+                        },
+                        success:function(res){
+                            if (res.err_info) {
+                                alert(res.err_info)
+                            } else {
+                                alert('保存成功')
+                                setTimeout(function() {
+                                    location.replace('https://www.baidu.com')
+                                }, 800)   
+                            }
+                        },
+                        error:function(err){
+                            alert(err)   
+                        }
+                    });
+                })
+            })
+                
+
+        
+
+
+
