@@ -3,9 +3,9 @@
   "version": "1.0.1",
   "private": false,
   "scripts": {
-    "start": "node bin/express",
-    "dev": "./node_modules/.bin/nodemon bin/express",
-    "prod": "pm2 start bin/express"
+    "start": "node bin/exp",
+    "dev": "./node_modules/.bin/nodemon bin/exp",
+    "prod": "pm2 start bin/exp"
   },
   "dependencies": {
     "ali-oss": "^4.11.4",
